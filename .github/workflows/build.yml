@@ -1,0 +1,19 @@
+name: Build Specification
+
+on:
+  push:
+    branches: ["main"]
+    paths: ["book/**"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # define destination path (DEST_DIR)
+      - name: Compile TEX Document
+        run: |
+          docker run --rm -v $(pwd):/workdir texlive/texlive lualatex jdf-specification.tex

@@ -1,0 +1,26 @@
+% cip4-style.sty
+\ProvidesPackage{cip4-style}[2025/01/08 Custom LaTeX Style]
+
+% General document formatting
+\setlength{\parindent}{0pt} % No paragraph indentation
+\setlength{\parskip}{1em}  % Add space between paragraphs
+\linespread{1.2}           % Line spacing
+
+% Font configuration (requires fontspec for XeLaTeX/LuaLaTeX)
+\RequirePackage{fontspec}
+\setmainfont{Roboto}       % Main font
+\setsansfont{Open Sans}    % Sans-serif font
+% \setmonofont{Monospace}    % Monospace font
+
+% Additional packages
+\RequirePackage{geometry} % For page layout
+\geometry{a4paper, margin=1in}
+
+\RequirePackage{graphicx} % For including images
+\RequirePackage{xcolor}   % For colors
+
+% Custom commands
+\newcommand{\mytitle}[1]{\textbf{\Huge{#1}}} % Example: custom title format
+
+
+\usepackage[english]{babel} % Correct usage
