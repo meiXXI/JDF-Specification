@@ -3,7 +3,6 @@ name: Build Specification
 on:
   push:
     branches: ["main"]
-    paths: ["book/**"]
   workflow_dispatch:
 
 jobs:
