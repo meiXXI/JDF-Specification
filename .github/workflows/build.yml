@@ -16,3 +16,16 @@ jobs:
       - name: Compile TEX Document
         run: |
           docker run --rm -v $(pwd):/workdir texlive/texlive lualatex jdf-specification.tex
+
+      
+      - name: Upload appendix PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: pdf
+          path: jdf-specification.tex
+
+      - name: Upload supplementary PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs
+          path: jdf-specification.log
