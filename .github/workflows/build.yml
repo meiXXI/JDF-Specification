@@ -12,26 +12,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Compile LaTeX document
-        uses: dante-ev/latex-action@latest
-        with:
-          root_file: jdf-specification.tex
-          compiler: lualatex
-          args: -interaction=nonstopmode -shell-escape
+      - name: Compile TEX Document
+        run: |
+          docker run --rm -v $(pwd):/workdir texlive/texlive lualatex jdf-specification.tex
 
-      # define destination path (DEST_DIR)
-      # - name: Compile TEX Document
-      #   run: |
-      #     docker run --rm -v $(pwd):/workdir texlive/texlive lualatex jdf-specification.tex
-
-      
-      - name: Upload appendix PDF
+      - name: Upload PDF
         uses: actions/upload-artifact@v3
         with:
           name: pdf
           path: jdf-specification.pdf
 
-      - name: Upload supplementary PDF
+      - name: Upload Logs
         uses: actions/upload-artifact@v3
         with:
           name: logs

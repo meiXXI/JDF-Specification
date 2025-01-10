@@ -1,7 +1,9 @@
+./*.pdf
+
 *.aux
+*.bbl
 *.fls
 *.log
-*.pdf
 *.toc
 *.gz
 *.fdb_latexmk

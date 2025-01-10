@@ -1,25 +1,44 @@
-% !TeX program = lualatex
-\documentclass{book}
+\documentclass[a4paper, 10pt]{book}
 
- 
-% Style
-\usepackage{cip4-style}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel} 
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
 
-% Title Information
-\title{JDF Specification}
+% head numbering
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{2}
 
-\author{CIP4 Organization}
-\date{\today}
+% header / footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{\leftmark}
+\chead{}
+\rhead{\rightmark}
+
+\lfoot{}
+\cfoot{XJDF Specification 2.1}
+\rfoot{\thepage}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
 
 
-% Start Document
 \begin{document}
 
-\maketitle
+\include{pages/title}
+\include{pages/banner}
+\include{pages/legal-notice}
 
+\pagenumbering{roman}
 \tableofcontents
 
-% \include{chapters/introduction}
-% \include{chapters/essentials}
+
+\newpage
+\pagenumbering{arabic}
+\include{chapters/introduction}
+\include{chapters/overview} 
+\include{chapters/structure} 
 
 \end{document}

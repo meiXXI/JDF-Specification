@@ -1,0 +1,80 @@
+\chapter{Introduction}
+This document defines the technical specification for the Exchange Job Definition Format (XJDF) and its counterpart, the Exchange Job Messaging Format (XJMF).
+
+XJDF is a technology that allows systems from many different vendors to interoperate in automated workflows. While technically it is an XML software specification, it is more importantly a means to connect multiple vendor solutions to a workflow solution for automation.
+
+XJDF 2.0 was the first major version update of JDF. It is such a major update that we decided to provide a new name for the XML root element: XJDF. Whereas the minor revisions were at least nominally backwards compatible, XJDF is a major redesign that takes more than a decade of experience into account. XJDF 2.1 is a minor update and is backwards compatible with XJDF 2.0.
+
+Note: The specification uses two forms for references to XJDF/XJMF (the general concept of the specification) and XJDF/ XJMF (for specific reference to the root element of an XML instance).
+
+This document is intended for use by programmers and systems integrators. It provides both the syntactical requirements for the elements and attributes of XJDF and XJMF as well as requirements for devices and controllers to act upon the data. In this first chapter, we present the concept of XJDF, and its relationship to JDF and other industry standards.
+
+
+\section{Further Information}
+Additional information such as application notes and examples can be found on the CIP4 website 
+
+at http://www.CIP4.org and the CIP4 technical website at https://confluence.cip4.org.
+
+
+\subsection{NMTOKEN repository}
+Open lists are marked with a data type of NMTOKEN or NMTOKENS and contain a list of suggested values. The list of values may be incomplete and sometimes needs to be extended with new values without updating the specification, e.g. when a new domain ICS is developed.
+
+Additional, suggested values are maintained in the CIP4 technical discussion area at https://confluence.cip4.org. In order to avoid different extension values being used for the same purpose, vendors are encouraged to check this area prior to using new values. In the event that no existing extension exists then vendors are further encourged to submit their extensions to CIP4 using the CIP4 issue tracking system at https://jira.cip4.org.
+
+
+\subsection{Errata}
+Although great care has been taken to ensure that this specification is correct and complete, some errors cannot be avoided. CIP4 therefore maintains an online errata repository in its technical discussion area at
+https://confluence.cip4.org. A copy of the original specification with annotations identifying the errata is also published and can be found at https://confluence.cip4.org.
+
+The corrections in the errata override the published specification.
+
+
+\section{Background on XJDF}
+XJDF is an extensible, XML-based data interchange format built upon more than twenty years of experience with JDF.
+
+XJDF is an interchange data format that can be used by a system of controllers, devices and MIS, which together produce
+printed products. It provides the means to describe print jobs in terms of the products eventually to be created, as well
+as in terms of the work steps needed to create those products. XJDF provides a syntax to explicitly specify the details of
+processes, which might be specific to the devices that execute the processes.
+
+XJDF is aligned with a communication format known as the Exchange Job Messaging Format or XJMF. XJMF provides
+the means for production components of an XJDF workflow to communicate with controllers such as MIS. It gives MIS
+and other controllers the ability to receive information from devices or other controllers about the status of jobs and
+devices. XJDF and XJMF are maintained and developed by CIP4 (http://www.CIP4.org).
+
+
+\section{Design Criteria for XJDF}
+The major conceptual change is that XJDF no longer attempts to model the entire job as one large "job ticket" but rather specifies an interchange format between 2 applications that are assumed to have an internal data model that is not necessarily based on XJDF. Thus each XJDF ticket specifies a single transaction between two parties. A single job may be modeled as one or more XJDF transactions.
+
+The following criteria were taken into account in this redesign:
+
+\begin{itemize}
+    \item XJDF should be simple to use.
+    \item The number of methods to describe similar traits should be as limited as possible, ideally one.
+    \item XJDF should be compatible with the latest XML tools to simplify development.
+    \item Simple XPath expression to reference XJDF traits.
+    \item Direct use of ID-IDREF pairs for referencing distributed data within an XML document.
+    \item Use of XML schema rather than proprietary data structures to describe device capabilities.
+    \item The semantics of JDF 1.x should be retained and mapping between JDF 1.x and XJDF should be simple.
+    \item Change orders (Modifications of submitted jobs) should be easy to describe.
+\end{itemize}
+
+These requirements lead to some significant modifications that are not syntactically backwards compatible, but can easily be converted using JDF 1.x aware middleware.
+
+
+\subsection{Simplify and reduce variations}
+JDF 1.x allowed shorthand for some simple cases. What seemed reasonable actually made things more complex, since both shorthand and the long version had to be implemented. For instance, amount related attributes could be found either directly in a ResourceLink or in a ResourceLink/AmountPool/PartAmount. XJDF removes much of this variability.
+
+\subsubsection{Reduce the barrier of entry}
+Simple tasks should be easy to describe. In such cases the XJDF should be capable of being described as a short list of simple XPaths.
+
+\subsubsection{Single XJDF}
+JDF 1.x allowed for multiple 'JDF' nodes within one ticket. This grouping of multiple nodes in process groups resulted in many variations of JDF for the same or similar requirements. Version 2.x has exactly one XJDF element, namely the root element; this contains no XJDF child nodes. This means there can be no ambiguity about where to locate and retrieve a given trait.
+
+\subsubsection{Replace abstract data types with explicit elements and children}
+Abstract elements are more concise to write, but inherited traits also tend to be overlooked by newcomers to a specification. If elements are designed to be final with sub-elements, each specification entry can be found by searching for the explicit element name.
+
+\subsubsection{Remove ResourceLinks}
+XJDF allowed specification of interdependencies of processes using 'ResourceLink' elements. In most cases, this feature is not required if the controller maintains an internal job model. Therefore XJDF does not provide mechanisms to describe process networks within a single XJDF. 
+
+The Process / Resource model has been conceptually retained. But since there is only one XJDF element per XJDF transaction, reuse of resources is no longer an issue and 'ResourceLink' elments have been merged with their respective resources. Thus data that belongs together is also stored in the same region of the XML.

@@ -1,0 +1,36 @@
+\chapter{Structure}
+
+A single XJDF describes the information about a job or process step that is transferred from a controller to a device. The scope of the exchanged information varies depending on the nature of the recipient device. An XJDF that is targeted at an individual device will typically contain only the details that are required by that device, along with some optional information about the final product. Multiple work steps belonging to one job that need to be submitted from a controller to a workflow system that controls multiple devices SHALL be submitted as a separate XJDF for each work step. These MAY be packaged together and submitted as one or more transactions. See Chapter 9 Building a System for details of packaging and referencing of the individual XJDF.
+ 
+
+\section{XJDF}
+The top-level element of an XJDF instance SHALL be an XJDF element. See Table 3.1 XJDF below for details. XJDF elements MAY be embedded within other XML documents.
+
+XJDF/@Types defines whether an XJDF specifies an end product or a list of processes that SHALL be executed. XJDF that are created by print buyers typically describe only the desired product rather than manufacturing process details. XJDF that describe finished products SHALL have a value of XJDF/@Types that contains "Product". If additional process information that is not defined in the ProductList is required, this information SHOULD be provided in ResourceSet elements.
+
+ProductList MAY be provided in a process XJDF for informational purposes.
+
+\begin{table}[htb]
+\begin{tabular}{l l p{6cm}}
+    
+    % schema
+    schema ?  & 
+    URL &  
+    schema SHOULD reference the JSON schema for XJDF \\
+
+    % category
+    Category ? & 
+    NMTOKEN & 
+    Category specifies the named category of this XJDF. Controllers SHOULD specify @Category for processes that have many optional values in @Types. This allows processors to identify the general purpose of an XJDF without parsing the @Types field. For instance, a RIP for final output and a RIP for proof process have identical @Types attribute values, but have @Category = "RIPing" or @Category = "ProofRIPing", respectively.
+    
+    \textbf{Values include those from} Node Categories
+
+    \textbf{Note}@Category MAY also be the name of a Gray Box defined by an ICS document. See Section 1.9.2 Interoperability Conformance Specifications for details. \\
+
+    % CommentUrl
+    CommentURL ? &
+    URL &
+    CommentURL SHALL refer to an external, human-readable description of this XJDF. \\
+\end{tabular}
+\caption{XJDF}
+\end{table}
