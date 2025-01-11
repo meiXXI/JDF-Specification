@@ -14,9 +14,10 @@ jobs:
 
       - name: Compile TEX Document
         run: |
-          docker run --rm -v $(pwd):/workdir texlive/texlive pdflatex \
-            \\newcommand\\githash{${{ github.sha }}} \
-            \\input{jdf-specification.tex} \
+          docker run --rm -i -v $(pwd):/workdir texlive/texlive pdflatex <<EOF
+            \newcommand\githash{${{ github.sha }}}
+            \input{jdf-specification.tex}
+          EOF
 
       - name: Upload PDF
         uses: actions/upload-artifact@v3
