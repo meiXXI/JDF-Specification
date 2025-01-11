@@ -18,30 +18,33 @@ jobs:
 
       - name: Compile JDF Document
         run: |
-          docker run --rm -i -v $(pwd):/workdir texlive/texlive latexmk -pdflua -jobname=jdf-specification <<EOF
+          cat <<EOF > build-jdf.tex
             \newcommand\type{JDF}
             \newcommand\version{1.9}
             \newcommand\gitsha{${{ github.sha }}}
             \input{main.tex}
           EOF
+          docker run --rm -i -v $(pwd):/workdir texlive/texlive latexmk -pdflua -jobname=jdf-specification build-jdf.tex
 
       - name: Compile XJDF Document
         run: |
-          docker run --rm -i -v $(pwd):/workdir texlive/texlive latexmk -pdflua -jobname=xjdf-specification <<EOF
+          cat <<EOF > build-xjdf.tex
             \newcommand\type{XJDF}
             \newcommand\version{2.3}
             \newcommand\gitsha{${{ github.sha }}}
             \input{main.tex}
           EOF
+          docker run --rm -i -v $(pwd):/workdir texlive/texlive latexmk -pdflua -jobname=xjdf-specification build-xjdf.tex
 
       - name: Compile BOTH Document
         run: |
-          docker run --rm -i -v $(pwd):/workdir texlive/texlive latexmk -pdflua -jobname=both-specification <<EOF
+          cat <<EOF > build-both.tex
             \newcommand\type{BOTH}
             \newcommand\version{1.9+2.3}
             \newcommand\gitsha{${{ github.sha }}}
             \input{main.tex}
           EOF
+          docker run --rm -i -v $(pwd):/workdir texlive/texlive latexmk -pdflua -jobname=both-specification build-both.tex
 
       - name: Upload PDF
         uses: actions/upload-artifact@v4
