@@ -1,37 +1,73 @@
-\documentclass[a4paper, 10pt]{book}
+\documentclass[draft]{book}
 
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel} 
 \usepackage[T1]{fontenc}
-\usepackage{graphicx}
+\usepackage[final]{graphicx}
+
+
+% variables
+\providecommand{\githash}{n.a.}
+
 
 % head numbering
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{2}
 
+
+% page layout
+\usepackage{geometry}
+\geometry {
+    a4paper,
+    top=10mm,           % text start (excl. header)
+    bottom=10mm,        % text end  (excl. footer)
+    left=10mm,
+    right=10mm,
+}
+
+
 % header / footer
 \usepackage{fancyhdr}
 \pagestyle{fancy}
+\fancyhf{}              % clear default
 
-\lhead{\leftmark}
-\chead{}
-\rhead{\rightmark}
+\fancyfoot[LO]{}                % odd pages: footer left
+\fancyfoot[CO]{}                % odd pages: footer center
+\fancyfoot[RO]{\thepage}        % odd pages: footer right
 
-\lfoot{}
-\cfoot{XJDF Specification 2.1}
-\rfoot{\thepage}
+\fancyfoot[LE]{\thepage}        % even pages: footer left
+\fancyfoot[CE]{}                % even pages: footer center
+\fancyfoot[RE]{}                % even pages: footer right side
 
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{         % e.g. first chapter pages
+    \fancyfoot[LO]{}                % odd pages: footer left
+    \fancyfoot[CO]{}                % odd pages: footer center
+    \fancyfoot[RO]{\thepage}        % odd pages: footer right
+
+    \fancyfoot[LE]{\thepage}        % even pages: footer left
+    \fancyfoot[CE]{}                % even pages: footer center
+    \fancyfoot[RE]{}                % even pages: footer right side
+}
+
+\renewcommand{\headrulewidth}{0pt}      % remove header line
+\renewcommand{\footrulewidth}{0pt}      % remove footer line
 
 
+% DRAFT watermark
+\usepackage{draftwatermark}
+
+
+% start documents content
 \begin{document}
 
+
 \include{pages/title}
+
+\pagenumbering{roman}
 \include{pages/banner}
 \include{pages/legal-notice}
 
-\pagenumbering{roman}
+
 \tableofcontents
 
 
