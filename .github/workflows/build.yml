@@ -13,12 +13,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Compile TEX Document
-        run: >
-          docker run --rm -v $(pwd):/workdir texlive/texlive pdflatex 
-          "
+        run: |
+          docker run --rm -v $(pwd):/workdir texlive/texlive pdflatex <<EOF
             \newcommand\githash{GIT_HASH}
             \input{jdf-specification.tex}
-          "
+          EOF
 
       - name: Upload PDF
         uses: actions/upload-artifact@v3
