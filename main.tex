@@ -4,10 +4,25 @@
 \usepackage[english]{babel} 
 \usepackage[T1]{fontenc}
 \usepackage[final]{graphicx}
+\usepackage{tikz}
+\usepackage{ifthen}
 
 
 % variables
+\providecommand{\type}{XJDF}            % valid values: JDF, XJDF, BOTH
+\providecommand{\version}{1.9+2.3}      % any major version string. E.g. '2.1'
 \providecommand{\gitsha}{n.a.}
+
+% create variables
+\ifthenelse{\equal{\type}{XJDF}}{ % XJDF
+    \newcommand{\doctitle}{XJDF Specification}
+}{}
+\ifthenelse{\equal{\type}{JDF}}{ % JDF
+    \newcommand{\doctitle}{JDF Specification}
+}{}
+\ifthenelse{\equal{\type}{BOTH}}{ % BOTH
+    \newcommand{\doctitle}{BOTH Specifications}
+}{}
 
 
 % head numbering
