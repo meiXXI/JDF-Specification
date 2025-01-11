@@ -12,17 +12,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Compile TEX Document
+      - name: Pull texlive image
         run: |
-          docker run --rm -i -v $(pwd):/workdir texlive/texlive pdflatex <<EOF
-            \newcommand\githash{${{ github.sha }}}
+          docker pull texlive/texlive
+
+      - name: Compile JDF Document
+        run: |
+          docker run --rm -i -v $(pwd):/workdir texlive/texlive pdflatex -jobname=jdf-specification <<EOF
+            \newcommand\gitsha{${{ github.sha }}}
+            \input{jdf-specification.tex}
+          EOF
+
+      - name: Compile XJDF Document
+        run: |
+          docker run --rm -i -v $(pwd):/workdir texlive/texlive pdflatex -jobname=xjdf-specification <<EOF
+            \newcommand\gitsha{${{ github.sha }}}
             \input{jdf-specification.tex}
           EOF
 
       - name: Upload PDF
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: |
             ./jdf-specification.pdf
-            ./jdf-specification.log
+            ./xjdf-specification.pdf
