@@ -4,14 +4,16 @@
 \usepackage[final]{graphicx}
 \usepackage{tikz}
 \usepackage{ifthen}
+\usepackage{float}
 
 \usepackage{styles/typography} 
 \usepackage{styles/tables} 
 
 % variables
-\providecommand{\type}{XJDF}            % valid values: JDF, XJDF, BOTH
+\providecommand{\type}{BOTH}            % valid values: JDF, XJDF, BOTH
 \providecommand{\version}{1.9+2.3}      % any major version string. E.g. '2.1'
 \providecommand{\gitsha}{n.a.}
+
 
 % create variables
 \ifthenelse{\equal{\type}{XJDF}}{ % XJDF
@@ -30,14 +32,12 @@
 
 
 \include{pages/title}
-
 \pagenumbering{roman}
 \include{pages/banner}
 \include{pages/legal-notice}
 
 
 \tableofcontents
-
 
 \newpage
 \pagenumbering{arabic}
