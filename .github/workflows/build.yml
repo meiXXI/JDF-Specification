@@ -18,7 +18,7 @@ jobs:
 
       - name: Compile JDF Document
         run: |
-          docker run --rm -i -v $(pwd):/workdir texlive/texlive pdflatex -jobname=jdf-specification <<EOF
+          docker run --rm -i -v $(pwd):/workdir texlive/texlive lualatex -jobname=jdf-specification <<EOF
             \newcommand\type{JDF}
             \newcommand\version{1.9}
             \newcommand\gitsha{${{ github.sha }}}
@@ -27,7 +27,7 @@ jobs:
 
       - name: Compile XJDF Document
         run: |
-          docker run --rm -i -v $(pwd):/workdir texlive/texlive pdflatex -jobname=xjdf-specification <<EOF
+          docker run --rm -i -v $(pwd):/workdir texlive/texlive lualatex -jobname=xjdf-specification <<EOF
             \newcommand\type{XJDF}
             \newcommand\version{2.3}
             \newcommand\gitsha{${{ github.sha }}}
@@ -36,7 +36,7 @@ jobs:
 
       - name: Compile BOTH Document
         run: |
-          docker run --rm -i -v $(pwd):/workdir texlive/texlive pdflatex -jobname=both-specification <<EOF
+          docker run --rm -i -v $(pwd):/workdir texlive/texlive lualatex -jobname=both-specification <<EOF
             \newcommand\type{BOTH}
             \newcommand\version{1.9+2.3}
             \newcommand\gitsha{${{ github.sha }}}
