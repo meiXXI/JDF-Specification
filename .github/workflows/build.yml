@@ -20,14 +20,14 @@ jobs:
         run: |
           docker run --rm -i -v $(pwd):/workdir texlive/texlive pdflatex -jobname=jdf-specification <<EOF
             \newcommand\gitsha{${{ github.sha }}}
-            \input{jdf-specification.tex}
+            \input{main.tex}
           EOF
 
       - name: Compile XJDF Document
         run: |
           docker run --rm -i -v $(pwd):/workdir texlive/texlive pdflatex -jobname=xjdf-specification <<EOF
             \newcommand\gitsha{${{ github.sha }}}
-            \input{jdf-specification.tex}
+            \input{main.tex}
           EOF
 
       - name: Upload PDF
